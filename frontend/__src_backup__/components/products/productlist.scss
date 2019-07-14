@@ -1,0 +1,32 @@
+.c-products {
+  .c-productlist {
+	.c-product-card {
+	  font-size: 1rem;
+	  .c-image-link:hover {
+		.c-card-image{
+		  filter: brightness(60%);
+		  transition: .2s;
+		}
+	  }
+	  .c-image-link {
+		transition: .2s;
+	  }
+	  .c-product-name {
+		display: inline;
+		-webkit-box-orient: vertical;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+		line-height: 1.5em;
+		max-height: 3em;
+		word-wrap: break-word;
+	  }
+	  .c-shop-location {
+		font-size: 13px;
+	  }
+	  .c-product-rating {
+		font-size: 13px;
+	  }
+	}
+  }
+}

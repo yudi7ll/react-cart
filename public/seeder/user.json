@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5d2074090218c121dd6c246b"},"name":"Yudi","username":"yudi1ll","password":"$2b$10$kHuoxGKSZuKMyH1hU.K1r.n3SzaYUteKbQaQI4Fdx20qs8rtxPcZq","birthDate":{"$date":"1999-07-04T05:10:28.685Z"},"created":{"$date":"2019-07-06T10:12:25.523Z"},"modified":{"$date":"2019-07-06T10:12:25.523Z"},"__v":0,"shop":{"$oid":"5d26ebd6cd958a2ff298dc30"}}
