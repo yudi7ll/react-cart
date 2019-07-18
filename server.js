@@ -47,11 +47,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/auth', routes.auth);
-app.use('/api/user', routes.user);
-app.use('/api/shop', routes.shop);
-app.use('/api/products', routes.products);
+app.use('/api/customer', routes.customer);
+app.use('/api/product', routes.product);
 app.use('/api/cart', routes.cart);
 
-app.listen(PORT, () => console.log('server running on', PORT));
+app.listen(PORT);
 
 module.exports = app;

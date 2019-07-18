@@ -1,15 +1,11 @@
 const auth = require('./auth');
 const cart = require('./cart');
-const products = require('./products');
-const shop = require('./shop');
-const user = require('./user');
+const product = require('./product');
+const customer = require('./customer');
 
 module.exports = {
   auth,
   cart,
-  products,
-  shop,
-  user
+  product,
+  customer
 };
-
-// TODO: refactor controllers

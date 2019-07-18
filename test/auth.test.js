@@ -6,29 +6,41 @@ const chai = require('chai');
 const should = chai.should();
 
 const server = require('../server');
-const { User } = require('../models');
+const { Customer } = require('../models');
 
 chai.use(require('chai-http'));
 
 const data = { 
   beforeEach: {
-	name: 'beforeUser',
+	name: 'beforeCustomer',
 	username: 'userBefore',
+	email: 'userbefore@email.com',
+	address: 'test',
 	password: 'password123',
-	birthDate: '1999-07-04T05:10:28.685Z'
+	birthDate: '1999-07-04T05:10:28.685Z',
+	city: 'test',
+	country: 'test',
+	postalCode: 'test',
+	phone: '109238471',
   },
   user: {
 	name: 'Yudi',
 	username: 'yudi1ll',
 	password: 'password123',
-	birthDate: '1999-07-04T05:10:28.685Z'
+	birthDate: '1999-07-04T05:10:28.685Z',
+	email: 'user@email.com',
+	address: 'test',
+	city: 'test',
+	country: 'test',
+	postalCode: 'test',
+	phone: '109238471',
   }
 }
 
 describe('AUTH TEST', () => {
 
   beforeEach(done => {
-	User.deleteMany({}, () => { 
+	Customer.deleteMany({}, () => { 
 	  chai.request(server)
 		.post('/api/auth/signup')
 		.send(data.beforeEach)
@@ -75,7 +87,7 @@ describe('AUTH TEST', () => {
 			  .end((err, res) => {
 				should.not.exist(err);
 				res.should.have.status(200);
-				res.body.should.be.a('boolean').eql(true);
+				res.body.should.be.a('object');
 				done();
 			  });
 		  });
@@ -87,7 +99,8 @@ describe('AUTH TEST', () => {
 		.end((err, res) => {
 		  should.not.exist(err);
 		  res.should.have.status(401);
-		  res.body.should.be.a('boolean').eql(false);
+		  res.body.should.be.a('object');
+		  res.body.should.have.property('errors');
 		  done();
 		});
 	});

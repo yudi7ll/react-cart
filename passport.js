@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 
-const { Customers } = require('./models');
+const { Customer } = require('./models');
 
 module.exports = (passport) => {
 
@@ -9,22 +9,25 @@ module.exports = (passport) => {
   });
 
   passport.deserializeUser((id, done) => {
-
-	Customers.findById(id, (err, user) => {
+	Customer.findById(id, (err, user) => {
 	  return done(err, user);
 	});
-
   });
 
-  passport.use('login',
-	new LocalStrategy((username, password, done) => {
-
-	  Customers.findOne({username}, (err, doc) => {
+  passport.use('login', new LocalStrategy({
+	  passReqToCallback: true
+	}, (req, username, password, done) => {
+	  // find By email or username
+	  Customer.findOne({
+		$or: [
+		  { username },
+		  { email: req.email }
+		]
+	  }, (err, doc) => {
 		if (err)
 		  return done(err);
 
 		if (doc) {
-
 		  if (doc.comparePassword(password, doc.password))
 			return done(null, doc);
 		  else
@@ -41,10 +44,8 @@ module.exports = (passport) => {
 			  username: 'Wrong username'
 			}
 		  });
-
 		}
 	  });
-
 	}
   ));
 
@@ -52,26 +53,29 @@ module.exports = (passport) => {
 	passReqToCallback: true
   },
 	(req, username, password, done) => {
-
-	  Customers.findOne({username}, (err, doc) => {
+	  Customer.findOne({
+		$or: [
+		  { username }, { email: req.email }
+		]
+	  }, (err, doc) => {
 		if (err)
 		  return done(err);
 
 		if (doc)
 		  return done({
 			errors: {
-			  username: 'Username has already been taken'
+			  username: 'Username or Email has already been used'
 			}
 		  });
 
-		const newCustomers = new Customers(req.body);
-		newCustomers.password = newCustomers.hashPassword(password);
+		const newCustomer = new Customer(req.body);
+		newCustomer.password = newCustomer.hashPassword(password);
 
-		newCustomers.save((err, customers) => {
+		newCustomer.save((err, customer) => {
 		  if (err)
 			return done(err);
 
-		  return done(null, customers);
+		  return done(null, customer);
 		});
 	  });
 
