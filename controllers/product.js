@@ -1,8 +1,8 @@
 'use strict';
 
-const { Product, Customer } = require('../models');
+const { Product } = require('../models');
 
-exports.getAll = (_, res) => {
+const getAll = (_, res) => {
   Product.find({}, (err, doc) => {
 	if (err)
 	  return res.status(401).json(err);
@@ -11,11 +11,28 @@ exports.getAll = (_, res) => {
   });
 }
 
-exports.getOne = (req, res) => {
+const getOne = (req, res) => {
   Product.findById(req.params.id, (err, doc) => {
 	if (err)
 	  return res.status(401).json(err);
 
 	return res.status(200).json(doc);
   });
+}
+
+const getByCategory = (req, res) => {
+  Product
+	.find({ category: req.params.category })
+	.exec((err, product) => {
+	  if (err)
+		return res.status(400).json(err);
+
+	  return res.status(200).json(product);
+	});
+}
+
+module.exports = {
+  getAll,
+  getOne,
+  getByCategory
 }

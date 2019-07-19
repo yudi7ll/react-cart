@@ -13,7 +13,6 @@ const imagePath = image =>
   require(`../../../public/assets/images/banner/${image}`); 
 
 const Banner = () => {
-
   const Categories = ({ icon, children, href }) => (
 	<Col
 	  className="text-center category"
@@ -103,22 +102,22 @@ const Banner = () => {
 		<Row
 		  className="py-3"
 		>
-		  <Categories icon="desktop" href="/categories/electronics">
+		  <Categories icon="desktop" href="/category/electronics">
 			Electronics
 		  </Categories>
-		  <Categories icon="futbol-o" href="/categories/hobbies">
+		  <Categories icon="futbol-o" href="/category/hobbies">
 			Hobbies & Collections
 		  </Categories>
-		  <Categories icon="bed" href="/categories/furniture">
+		  <Categories icon="bed" href="/category/furniture">
 			Furniture
 		  </Categories>
-		  <Categories icon="shirtsinbulk" href="/categories/fashion">
+		  <Categories icon="shirtsinbulk" href="/category/fashion">
 			Fashion
 		  </Categories>
-		  <Categories icon="book" href="/categories/book">
+		  <Categories icon="book" href="/category/book">
 			Book
 		  </Categories>
-		  <Categories icon="cutlery" href="/categories/food">
+		  <Categories icon="cutlery" href="/category/food">
 			Food & Drink
 		  </Categories>
 		</Row>

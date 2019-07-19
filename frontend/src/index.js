@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import reducers from './reducers';
 import App from './components/App';
-import { checkAuth } from './actions';
+import { checkAuth, fetchCategory } from './actions';
 
 const store = createStore(
   reducers,
@@ -16,6 +16,7 @@ const store = createStore(
 );
 
 store.dispatch(checkAuth());
+store.dispatch(fetchCategory());
 
 store.subscribe(() => console.log(store.getState()));
 

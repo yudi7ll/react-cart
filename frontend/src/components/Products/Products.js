@@ -5,7 +5,6 @@ import { Card } from 'react-bootstrap';
 import { fetchProducts, resetProducts } from '../../actions';
 
 const Product = ({ receiveData, products }) => {
-
   // componentDidMount() without class
   useEffect(receiveData, []);
 
