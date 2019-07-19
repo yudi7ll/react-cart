@@ -9,12 +9,13 @@
 
 ```sh
 npm install
+npm run seed
 ```
 
 ## Usage
 
 ```sh
-npm run start
+npm start
 ```
 
 ## Run tests
