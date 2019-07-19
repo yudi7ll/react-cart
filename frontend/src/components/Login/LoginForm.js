@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { authStatus, checkAuth } from '../../actions';
+import { checkAuth } from '../../actions';
 
 import {
   Form,
-  Button
+  Button,
+  Row,
+  Col
 } from 'react-bootstrap';
 
 const submitForm = (formData, callback) => {
@@ -18,14 +20,10 @@ const submitForm = (formData, callback) => {
 	body: JSON.stringify(formData),
   })
 	.then(res => res.json())
-	.then(res => {
-	  res.errors 
-		? console.log(res)
-		: callback(res);
-	});
+	.then(res => callback(res));
 }
 
-const LoginForm = ({ refreshAuthStatus, checkAuth }) => {
+const LoginForm = ({ isLoading, refreshAuthStatus }) => {
   let username,
 	password;
 
@@ -39,46 +37,78 @@ const LoginForm = ({ refreshAuthStatus, checkAuth }) => {
 		  password: password.value
 		};
 
-		submitForm(formData, auth => {
-		  refreshAuthStatus(auth);
+		submitForm(formData, res => {
+		  refreshAuthStatus();
+
+		  if (!res.errors)
+			document.location.href = '/';
 		});
 	  }}
 	>
-	  <Form.Group controlId="username">
-		<Form.Control
-		  type="text"
-		  placeholder="Username"
-		  autoComplete={'off'}
-		  ref={e => username = e}
-		/>
+	  <Form.Group
+		as={Row}
+		controlId="username"
+	  >
+		<Form.Label
+		  column 
+		  lg={3}
+		>
+		  Username
+		</Form.Label>
+		<Col
+		  lg={9}
+		>
+		  <Form.Control
+			type="text"
+			placeholder="Enter Username or Email"
+			autoComplete={'off'}
+			ref={e => username = e}
+		  />
+		</Col>
 	  </Form.Group>
-	  <Form.Group controlId="password">
-		<Form.Control
-		  type="password"
-		  placeholder="Password"
-		  ref={e => password = e}
-		/>
+	  <Form.Group
+		as={Row}
+		controlId="password"
+	  >
+		<Form.Label
+		  column
+		  lg={3}
+		>
+		  Password
+		</Form.Label>
+		<Col
+		  lg={9}
+		>
+		  <Form.Control
+			type="password"
+			ref={e => password = e}
+		  />
+		</Col>
 	  </Form.Group>
 	  <Button
 		type="submit"
 		variant="danger"
 		size="sm"
-		className="d-block container-fluid"
+		className="d-block font-weight-bold container-fluid"
+		disabled={isLoading}
 	  >
-		Login
+		{ isLoading ? 'Loading...' : 'Login' }
 	  </Button>
 	</Form>
   );
 }
 
+const mapStateToProps = state => ({
+  isLoading: state.auth.isLoading
+})
+
 const mapDispatchToProps = dispatch => {
   return {
-	refreshAuthStatus: auth => dispatch(authStatus(auth)),
-	checkAuthStatus: () => dispatch(checkAuth())
+	refreshAuthStatus: () => dispatch(checkAuth())
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(LoginForm);

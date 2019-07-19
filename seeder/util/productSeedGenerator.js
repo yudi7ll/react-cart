@@ -1,7 +1,7 @@
-const category = require('./data/category.json');
+const category = require('../data/category.json');
 const fs = require('fs');
 
-let prod = require('../public/assets/tokopedia.json');
+let prod = require('../../public/assets/tokopedia.json');
 const randomIndex = (n = 100) => Math.round(Math.random() * n);
 const randomData = data => {
   return data[randomIndex(data.length - 1)].name;
@@ -25,3 +25,4 @@ prod.map(seed => {
 });
 
 fs.writeFileSync('seeder/data/product.json', JSON.stringify(prod));
+console.log('product.json file generated');

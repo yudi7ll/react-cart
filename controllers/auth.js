@@ -25,6 +25,7 @@ exports.register = (req, res) => {
 }
 
 exports.login = (req, res) => {
+  debugger;
   const { username, password } = req.body;
 
   if (!username || !password)

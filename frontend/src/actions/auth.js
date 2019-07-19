@@ -21,6 +21,7 @@ const checkAuth = () => dispatch => {
   return fetch('/api/auth/isAuthenticated')
 	.then(res => res.json())
 	.then(res => {
+	  console.log(res);
 	  const username = res.username || null;
 	  return dispatch(authStatus(username))
 	});

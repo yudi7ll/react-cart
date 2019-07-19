@@ -7,10 +7,17 @@ import {
 } from 'react-bootstrap';
 
 const SignupForm = () => {
-  let name,
-	username,
-	password,
-	birthDate;
+  const payload = {
+	name: '',
+	username: '',
+	email: '',
+	password: '',
+	address: '',
+	city: '',
+	country: '',
+	postalCode: '',
+	birthDate: ''
+  };
 
   // responsive value
   const formLabel = {
@@ -32,6 +39,30 @@ const SignupForm = () => {
 	  .then(res => res.json());
   };
 
+  const FormGroup = ({id, display, type, placeholder}) => (
+	<Form.Group
+	  as={Row}
+	  controlId={id}
+	>
+	  <Form.Label
+		column
+		sm={formLabel.sm}
+	  >
+		{display || id.charAt(0).toUpperCase() + id.slice(1)}
+	  </Form.Label>
+	  <Col
+		sm={formControl.sm}
+	  >
+		<Form.Control
+		  type={type || 'text'}
+		  placeholder={placeholder}
+		  ref={e => payload[id] = e}
+		  required={true}
+		/>
+	  </Col>
+	</Form.Group>
+  );
+
   return (
 	<Form
 	  onSubmit={e => {
@@ -42,94 +73,61 @@ const SignupForm = () => {
 		  password: password.value,
 		  birthDate: birthDate.value
 		};
-		console.log(payload);
 
 		submitForm(payload)
 		  .then(res => console.log(res));
-
 	  }}
 	>
-	  <Form.Group
-		as={Row}
-		controlId="name"
-	  >
-		<Form.Label
-		  column
-		  sm={formLabel.sm}
-		>
-		  Name
-		</Form.Label>
-		<Col
-		  sm={formControl.sm}
-		>
-		  <Form.Control
-			type="text"
-			placeholder="Enter your name"
-			ref={e => name = e}
-		  />
-		</Col>
-	  </Form.Group>
-	  <Form.Group
-		as={Row}
-		controlId="username"
-	  >
-		<Form.Label
-		  column
-		  sm={formLabel.sm}
-		>
-		  Username
-		</Form.Label>
-		<Col
-		  sm={formControl.sm}
-		>
-		  <Form.Control
-			type="text"
-			placeholder="Username"
-			autoComplete={'off'}
-			ref={e => username = e}
-		  />
-		</Col>
-	  </Form.Group>
-	  <Form.Group
-		as={Row}
-		controlId="password"
-	  >
-		<Form.Label
-		  column
-		  sm={formLabel.sm}
-		>
-		  Password
-		</Form.Label>
-		<Col
-		  sm={formControl.sm}
-		>
-		  <Form.Control
-			type="password"
-			placeholder="Password"
-			ref={e => password = e}
-		  />
-		</Col>
-	  </Form.Group>
-	  <Form.Group
-		as={Row}
-		controlId="birthDate"
-	  >
-		<Form.Label
-		  column
-		  sm={formLabel.sm}
-		>
-		  Birth date
-		</Form.Label>
-		<Col
-		  sm={formControl.sm}
-		>
-		  <Form.Control
-			type="date"
-			placeholder="Your birth date"
-			ref={e => birthDate = e}
-		  />
-		</Col>
-	  </Form.Group>
+	  <FormGroup
+		id="name"
+		display="Full Name"
+	  />
+	  <FormGroup
+		id="username"
+	  />
+	  <FormGroup
+		id="email"
+		type="email"
+		placeholder="ex. yourname@email.com"
+	  />
+	  <FormGroup
+		id="password"
+		placeholder="Password"
+		type="password"
+	  />
+	  <FormGroup
+		id="confirmPassword"
+		display=" "
+		placeholder="Confirm Password"
+		type="password"
+	  />
+	  <hr
+		className="py-3"
+	  />
+	  <FormGroup
+		id="address"
+		display="Street Address"
+	  />
+	  <FormGroup
+		id="city"
+	  />
+	  <FormGroup
+		id="country"
+	  />
+	  <FormGroup
+		id="postalCode"
+		display="Postal Code"
+		type="number"
+	  />
+	  <FormGroup
+		id="phone"
+		type="number"
+	  />
+	  <FormGroup
+		id="birthDate"
+		display="Birth Date"
+		type="date"
+	  />
 	  <Button
 		type="submit"
 		variant="danger"

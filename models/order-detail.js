@@ -10,10 +10,6 @@ const orderDetailsSchema = new Schema({
   qty: {
 	type: Number,
 	required: true
-  },
-  price: {
-	type: String,
-	required: true
   }
 });
 

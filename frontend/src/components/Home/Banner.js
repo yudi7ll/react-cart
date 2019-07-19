@@ -7,6 +7,7 @@ import {
   Container
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './category.scss';
 
 const imagePath = image => 
   require(`../../../public/assets/images/banner/${image}`); 
@@ -15,7 +16,7 @@ const Banner = () => {
 
   const Categories = ({ icon, children, href }) => (
 	<Col
-	  className="text-center"
+	  className="text-center category"
 	>
 	  <Link
 		to={href}
@@ -32,7 +33,7 @@ const Banner = () => {
 		  </i>
 		</div>
 		<div
-		  className="text-dark font-weight-bold text-nowrap"
+		  className="text-dark font-weight-bold text-nowrap pb-2"
 		>
 		  { children }
 		</div>

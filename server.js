@@ -47,6 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/auth', routes.auth);
+app.use('/api/order', routes.order);
 app.use('/api/customer', routes.customer);
 app.use('/api/product', routes.product);
 app.use('/api/cart', routes.cart);

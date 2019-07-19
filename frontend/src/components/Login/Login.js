@@ -1,48 +1,55 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {
   Col,
-  Row
+  Row,
+  Container
 } from 'react-bootstrap';
-
-import { checkAuth } from '../../actions';
-
+import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
-const Login = ({ refreshAuth, log }) => {
+const Login = () => {
   return (
-	<>
-	<Row
-	  className="justify-content-center my-3"
-	>
-	  <h2> Login </h2>
-	  <Col xs={12}>
-		<Col lg={{
-		  span: 6,
-		  offset: 3
-		}}
+	<Container>
+	  <Row>
+		<Col>
+		  <h2
+			className="text-center my-4"
+		  >
+			Sign in to
+			<span className="logo"> Reactcart</span>
+		  </h2>
+		</Col>
+	  </Row>
+	  <Row>
+		<Col
+		  lg={{
+			span: 4,
+			offset: 4
+		  }}
+		  className="bg-white p-4 mb-4 box-shadow"
 		>
 		  <LoginForm />
 		</Col>
-	  </Col>
-	  <button
-		type="button"
-		onClick={refreshAuth}
+	  </Row>
+	  <Row
 	  >
-		Refresh Auth
-	  </button>
-	</Row>
-	</>
+		<Col
+		  lg={{
+			span: 4,
+			offset: 4
+		  }}
+		  className="bg-white p-4 box-shadow"
+		>
+		  Doesn't have an account?
+		  <Link
+			to="/signup"
+			className="text-primary font-weight-bold"
+		  > Create an account
+		  </Link>
+		</Col>
+	  </Row>
+	</Container>
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-	refreshAuth: () => dispatch(checkAuth())
-  }
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Login);
+export default Login;

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Card,
@@ -7,6 +8,7 @@ import {
   Col
 } from 'react-bootstrap';
 import { fetchProducts } from '../../actions';
+import './flashSale.scss';
 
 const FlashSale = ({ products, fetchProd }) => {
 
@@ -17,36 +19,41 @@ const FlashSale = ({ products, fetchProd }) => {
 	  key={product._id}
 	  lg={3}
 	>
-	  <Card
+	  <Link
+		to={'/product/' + product._id}
 	  >
-		<Card.Img
-		  variant="top"
-		  src={ product.image }
-		  style={{
-			height: '250px',
-			maxHeight: '250px'
-		  }}
-		/>
-		<Card.Body>
-		  <Card.Text
-			id="product-title"
-		  >
-			{ product.name }
-		  </Card.Text>
-		  <Card.Title
-			className="text-danger "
-		  >
-			Rp. { product.price }
-		  </Card.Title>
-		</Card.Body>
-	  </Card>
+		<Card
+		>
+		  <Card.Img
+			variant="top"
+			src={ product.image }
+			style={{
+			  height: '250px',
+			  maxHeight: '250px'
+			}}
+			className="image"
+		  />
+		  <Card.Body>
+			<Card.Text
+			  id="product-title"
+			>
+			  { product.name }
+			</Card.Text>
+			<Card.Title
+			  className="text-danger "
+			>
+			  Rp. { product.price }
+			</Card.Title>
+		  </Card.Body>
+		</Card>
+	  </Link>
 	</Col>
 	)
   );
 
   return (
 	<Container
-	  className="mt-4 bg-white"
+	  className="my-4 bg-white pb-4"
 	>
 	  <Row>
 		<h3
@@ -65,7 +72,7 @@ const FlashSale = ({ products, fetchProd }) => {
 
 const mapStateToProps = state => {
   return {
-	products: state.products.items.slice(0, 4)
+	products: state.products.items.sort(() => 0.5 - Math.random()).slice(0, 4)
   };
 } 
 

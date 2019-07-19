@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
+
+.logo {
+	font-family: 'Kaushan Script', cursive;
+}
 
 * {
   box-sizing: border-box;
@@ -18,4 +23,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.box-shadow {
+  box-shadow: 3px 3px 14px rgba(0,0,0,.2);
 }

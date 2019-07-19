@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const { Customer } = require('./models');
 
-module.exports = (passport) => {
+module.exports = passport => {
 
   passport.serializeUser((user, done) => {
 	return done(null, user.id);
@@ -78,7 +78,6 @@ module.exports = (passport) => {
 		  return done(null, customer);
 		});
 	  });
-
 	}
   ));
 }

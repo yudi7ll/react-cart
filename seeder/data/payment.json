@@ -1,0 +1,9 @@
+[
+  {
+	"paymentType": "Cash on Delivery"
+  },{
+	"paymentType": "Transfer"
+  },{
+	"paymentType": "Alfamart/Indomart"
+  }
+]

@@ -24,6 +24,10 @@ const ordersSchema = new Schema({
 	ref: 'Shipper',
 	required: true
   },
+  total: {
+	type: String,
+	required: true
+  },
   address: {
 	city: String,
 	country: String,
@@ -36,5 +40,7 @@ const ordersSchema = new Schema({
 	required: true
   }
 });
+
+ordersSchema.index({ customer: 1 });
 
 module.exports = mongoose.model('Order', ordersSchema);

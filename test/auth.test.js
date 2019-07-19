@@ -13,10 +13,10 @@ chai.use(require('chai-http'));
 const data = { 
   beforeEach: {
 	name: 'beforeCustomer',
-	username: 'userBefore',
+	username: 'yudi1ll',
 	email: 'userbefore@email.com',
 	address: 'test',
-	password: 'password123',
+	password: 'password',
 	birthDate: '1999-07-04T05:10:28.685Z',
 	city: 'test',
 	country: 'test',
@@ -38,15 +38,6 @@ const data = {
 }
 
 describe('AUTH TEST', () => {
-
-  beforeEach(done => {
-	Customer.deleteMany({}, () => { 
-	  chai.request(server)
-		.post('/api/auth/signup')
-		.send(data.beforeEach)
-		.end(() => { done() });
-	});
-  });
 
   describe('/POST /auth/register', () => {
 

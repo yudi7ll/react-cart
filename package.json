@@ -8,7 +8,8 @@
     "react": "cd frontend && npm start",
     "watch": "nodemon index",
     "test": "mocha",
-	"db:seed": "node seeder"
+	"seed": "npm run seed:generate && node seeder && node seeder/testSeed.js",
+	"seed:generate": "node seeder/util"
   },
   "devDependencies": {
     "chai": "^4.2.0",

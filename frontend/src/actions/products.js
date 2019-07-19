@@ -17,7 +17,7 @@ const resetProducts = {
 const fetchProducts = () => dispatch => {
   dispatch(requestProducts);
 
-  return fetch('/api/products')
+  return fetch('/api/product')
 	.then(res => res.json())
 	.then(res => dispatch(receiveProducts(res)));
 };
