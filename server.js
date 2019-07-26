@@ -52,6 +52,7 @@ app.use('/api/category', routes.category);
 app.use('/api/customer', routes.customer);
 app.use('/api/product', routes.product);
 app.use('/api/cart', routes.cart);
+app.use('/api/shipper', routes.shipper);
 
 app.listen(PORT);
 

@@ -61,7 +61,7 @@ exports.logout = (req, res) => {
 exports.checkAuthStatus = (req, res) => {
   return req.isAuthenticated()
 	? res.status(200).json({ username: req.user.username })
-	: res.status(401).json({
+	: res.status(200).json({
 	  errors: {
 		msg: 'User doesn\'t logged in!'
 	  }

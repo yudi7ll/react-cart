@@ -1,55 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Container,
-  Card,
   Row,
-  Col
+  Button
 } from 'react-bootstrap';
 import { fetchProducts } from '../../actions';
+import { ProductCard } from '../Products';
 import './flashSale.scss';
 
-const FlashSale = ({ products, fetchProd }) => {
+const FlashSale = ({
+  isLoading,
+  requestFail,
+  products,
+  fetchProd
+}) => {
 
   useEffect(fetchProd, []);
-
-  const FlashProducts = () => products.map(product => (
-	<Col
-	  key={product._id}
-	  lg={3}
-	>
-	  <Link
-		to={'/product/' + product._id}
-	  >
-		<Card
-		>
-		  <Card.Img
-			variant="top"
-			src={ product.image }
-			style={{
-			  height: '250px',
-			  maxHeight: '250px'
-			}}
-			className="image"
-		  />
-		  <Card.Body>
-			<Card.Text
-			  id="product-title"
-			>
-			  { product.name }
-			</Card.Text>
-			<Card.Title
-			  className="text-danger "
-			>
-			  Rp. { product.price }
-			</Card.Title>
-		  </Card.Body>
-		</Card>
-	  </Link>
-	</Col>
-	)
-  );
 
   return (
 	<Container
@@ -64,25 +31,67 @@ const FlashSale = ({ products, fetchProd }) => {
 		</h3>
 	  </Row>
 	  <Row>
-		<FlashProducts />
+		<Container>
+		  <Row>
+			{ isLoading
+				? (
+				  <h4
+					className="w-100 text-center"
+				  >
+					Loading...
+				  </h4>
+				)
+
+				: (
+				  <ProductCard
+					products={products}
+				  />
+				)
+			}
+
+			{
+			  requestFail && (
+				<div
+				  className="w-100 text-center text-danger"
+				>
+				<h4>
+				  Error fetching data... !
+				</h4>
+				<Button
+				  size="sm"
+				  variant="danger"
+				  onClick={ () => document.location.reload() }
+				>
+				  Refresh
+				</Button>
+				</div>
+			  )
+			}
+		  </Row>
+		</Container>
 	  </Row>
 	</Container>
   );
 }
 
 const mapStateToProps = state => {
+  const filterState = ({ items }) => 
+	items
+	  .sort(() => 0.5 - Math.random())
+	  .slice(0, 12)
+
   return {
-	products: state.products.items.sort(() => 0.5 - Math.random()).slice(0, 4)
+	products: filterState(state.products),
+	isLoading: state.products.isLoading,
+	requestFail: state.products.requestFail
   };
 } 
 
-const mapDispatchToProps = dispatch => {
-  return {
-	fetchProd: () => {
-	  dispatch(fetchProducts());
-	}
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  fetchProd: () => {
+	dispatch(fetchProducts());
+  }
+});
 
 export default connect(
   mapStateToProps,

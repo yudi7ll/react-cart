@@ -1,53 +1,45 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import {
+  Row,
+  Container
+} from 'react-bootstrap';
 
-import { Card } from 'react-bootstrap';
 import { fetchProducts, resetProducts } from '../../actions';
+import ProductCard from './ProductCard';
 
 const Product = ({ receiveData, products }) => {
   // componentDidMount() without class
   useEffect(receiveData, []);
 
   return (
-	products.map(product => (
-	  <Card 
-		key={product._id}
-		style={{
-		  width: '190px'
-		}}
-	  >
-		<Card.Img
-		  variant="top"
-		  src={ product.image }
-		  style={{
-			width: '188px',
-			minHeight: '188px'
-		  }}
+	<Container>
+	  <Row>
+		<ProductCard
+		  products={products}
 		/>
-		<Card.Title>{ product.name }</Card.Title>
-		<Card.Text
-		  className="text-danger"
-		>
-		  Rp. { product.price }
-		</Card.Text>
-	  </Card>
-	))
+	  </Row>
+	</Container>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-	products: state.products.items
-  };
-}
+const mapStateToProps = state => (
+  {
+	products: state.products.items,
+  }
+);
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
 	receiveData: () => {
-	  dispatch(fetchProducts())
+	  dispatch(fetchProducts());
+
+	  return () => {
+		dispatch(resetProducts);
+	  }
 	}
-  };
-};
+  }
+);
 
 export default connect(
   mapStateToProps,

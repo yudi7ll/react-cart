@@ -1,14 +1,31 @@
 
 const products = (state = {
   isLoading: false,
+  requestFail: false,
   items: []
 }, action) => {
   switch (action.type) {
+	case 'RESET_PRODUCTS':
+	  return {
+		isLoading: false,
+		requestFail: false,
+		items: []
+	  };
 	case 'REQUEST_PRODUCTS':
 	  return Object.assign({},
 		state,
 		{
-		  isLoading: true
+		  isLoading: true,
+		  requestFail: false
+		}
+	  );
+
+	case 'REQUEST_FAIL':
+	  return Object.assign({},
+		state,
+		{
+		  isLoading: false,
+		  requestFail: true
 		}
 	  );
 
@@ -17,6 +34,7 @@ const products = (state = {
 		state,
 		{
 		  isLoading: false,
+		  requestFail: false,
 		  items: action.items
 		}
 	  );

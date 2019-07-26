@@ -53,7 +53,13 @@ const productSchema = new Schema({
 	required: true
   },
   review: [{
-	customer: String,
+	customer: {
+	  name: String,
+	  image: {
+		type: String,
+		default: 'default.png'
+	  }
+	},
 	comment: String,
 	rating: String,
 	created: {

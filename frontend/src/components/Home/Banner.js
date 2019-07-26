@@ -9,8 +9,9 @@ import {
 import { Link } from 'react-router-dom';
 import './category.scss';
 
-const imagePath = image => 
-  require(`../../../public/assets/images/banner/${image}`); 
+const imagePath = image => {
+  return require(`../../../public/assets/images/banner/${image}`); 
+}
 
 const Banner = () => {
   const Categories = ({ icon, children, href }) => (

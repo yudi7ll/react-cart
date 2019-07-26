@@ -8,11 +8,15 @@ const randomData = data => {
 }
 
 prod.map(seed => {
-  seed.review = {
-	customer: 'Customer Name',
-	comment: 'Comment',
-	rating: randomIndex(5)
-  };
+  seed.review = [
+	{
+	  customer: {
+		name: 'Customer name'
+	  },
+	  comment: 'Comment',
+	  rating: randomIndex(5)
+	}
+  ];
   seed.category = randomData(category);
   seed.discount = 0;
   seed.inStock = randomIndex();
@@ -20,7 +24,7 @@ prod.map(seed => {
   seed.productAvailable = randomIndex(1);
   seed.discountAvailable = randomIndex(1);
   seed.favorite = randomIndex();
-  seed.rating = randomIndex(5);
+  seed.rating = seed.review[0].rating;
   seed.description = seed.description || 'descriptions sample';
 });
 
