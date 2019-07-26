@@ -62,6 +62,7 @@ const LoginForm = ({ isLoading, refreshAuthStatus }) => {
 			type="text"
 			placeholder="Enter Username or Email"
 			autoComplete={'off'}
+			autoFocus
 			ref={e => username = e}
 		  />
 		</Col>

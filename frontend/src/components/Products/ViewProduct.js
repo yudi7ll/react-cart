@@ -103,12 +103,13 @@ const ViewProduct = ({ fetchData, product, shippers }) => {
   );
 }
 
-const mapStateToProps = (state) => ({
-  product: Object.assign({}, state.products.items.slice(0, 1)[0], {
-	isLoading: state.products.isLoading,
-	requestFail: state.products.requestFail
+const mapStateToProps = (state, ownProps) => ({
+  product: Object.assign({},
+	state.products.items.filter(p => p._id == ownProps.match.params.id)[0], {
+	  isLoading: state.products.isLoading,
+	  requestFail: state.products.requestFail
   }),
-  shippers: state.shipper
+  shippers: state.shipper,
 });
 
 const mapDispatchToProps = dispatch => ({

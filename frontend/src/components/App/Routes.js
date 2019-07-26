@@ -6,7 +6,8 @@ import Signup from '../Signup';
 import Login from '../Login';
 import {
   ProductList,
-  ViewProduct
+  ViewProduct,
+  ProductByCategory
 } from '../Products';
 
 const Routes = () => (
@@ -15,6 +16,7 @@ const Routes = () => (
   <Route path="/signup" component={Signup} />
   <Route path="/login" component={Login} />
   <Route path="/products" component={ProductList} />
+  <Route path="/category/:category" component={ProductByCategory} />
   <Route path="/product/catalog/:id" component={ViewProduct} />
   </>
 );
