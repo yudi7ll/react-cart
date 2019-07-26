@@ -2,6 +2,7 @@
 
 const auth = (state = {
   username: null,
+  image: null,
   isLoading: false
 }, action) => {
   switch (action.type) {
@@ -16,14 +17,16 @@ const auth = (state = {
 	  return Object.assign({}, state,
 		{
 		  isLoading: false,
-		  username: action.username
+		  username: action.username,
+		  image: action.image
 		});
 
 	case 'LOGOUT':
 	  return Object.assign({}, state,
 		{
 		  isLoading: false,
-		  username: null
+		  username: null,
+		  image: null
 		});
 
 	default:

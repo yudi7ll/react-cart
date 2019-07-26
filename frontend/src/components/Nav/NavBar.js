@@ -11,7 +11,7 @@ import './NavBar.scss';
 import { NavLogin, NavProfile } from './NavProfile';
 import SearchBar from './searchBar';
 
-const NavBar = ({ isLoading, categories }) => {
+const NavBar = ({ auth, isLoading, categories }) => {
   const NavItems = () => {
 	return categories.map(category => (
 	  <LinkContainer
@@ -83,7 +83,13 @@ const NavBar = ({ isLoading, categories }) => {
 		  </LinkContainer>
 		</Nav>
 		<Nav>
-		  <NavLogin />
+		  {
+			auth.username
+			  ? <NavProfile
+				  auth={auth}
+				/>
+			  : <NavLogin />
+		  }
 		</Nav>
 	  </Navbar.Collapse>
 	</Navbar>
@@ -91,6 +97,7 @@ const NavBar = ({ isLoading, categories }) => {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   isLoading: state.category.isLoading,
   categories: state.category.items
 });

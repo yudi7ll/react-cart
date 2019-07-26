@@ -4,10 +4,11 @@ const isLoading = {
   type: 'REQUEST_AUTH'
 };
 
-const authStatus = username => {
+const authStatus = ({ username, image }) => {
   return {
 	type: 'AUTH_STATUS',
-	username
+	username,
+	image
   };
 }
 
@@ -22,8 +23,7 @@ const checkAuth = () => dispatch => {
 	.then(res => res.json())
 	.then(res => {
 	  console.log(res);
-	  const username = res.username || null;
-	  return dispatch(authStatus(username))
+	  return dispatch(authStatus(res))
 	});
 }
 

@@ -17,6 +17,11 @@ const customersSchema = new Schema({
 	unique: true,
 	required: true
   },
+  image: {
+	type: String,
+	unique: true,
+	default: 'default.png'
+  },
   password: {
 	type: String,
 	required: true

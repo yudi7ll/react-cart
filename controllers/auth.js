@@ -60,7 +60,10 @@ exports.logout = (req, res) => {
 // check user auth
 exports.checkAuthStatus = (req, res) => {
   return req.isAuthenticated()
-	? res.status(200).json({ username: req.user.username })
+	? res.status(200).json({
+	  username: req.user.username,
+	  image: req.user.image || null
+	})
 	: res.status(200).json({
 	  errors: {
 		msg: 'User doesn\'t logged in!'

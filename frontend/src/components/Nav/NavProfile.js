@@ -8,51 +8,17 @@ import {
   Dropdown
 } from 'react-bootstrap';
 
+const imgUrl = (image) => {
+  return require('../../../public/assets/images/user/' + image);
+}
 
-const NavProfile = ({ isLoggedIn }) => {
+const NavProfile = ({ auth }) => {
   return (
-	<>
-	<Dropdown>
-	  <Image 
-		className="dropdown-toggle"
-		height="30px"
-		src="http://img01.deviantart.net/bcd2/i/2015/354/3/0/oliver_sykes_by_nheori-d9ks8r6.jpg"
-		roundedCircle
+	<div>
+	  <Image
+		src={imgUrl(auth.image)}
 	  />
-	</Dropdown>
-	{/*
-	<NavDropdown className="c-profile nav-item dropdown">
-	  <LinkContainer to="#">
-		<NavDropdown.Link>
-		  <Image 
-			src="http://img01.deviantart.net/bcd2/i/2015/354/3/0/oliver_sykes_by_nheori-d9ks8r6.jpg"
-			roundedCircle
-		  />
-		</NavDropdown.Link>
-	  </LinkContainer>
-	  <div className="nav-link p-0">
-		<Link
-		  className="nav-link"
-		  to="#"
-		  data-toggle="dropdown"
-		  aria-haspopup="true"
-		  aria-expanded="false"
-		>
-		</Link>
-		<div className="dropdown-menu dropdown-menu-right" aria-labelledby="c-img-profile">
-		  <Link className="dropdown-item" to="#">Profile</Link>
-		  <Link className="dropdown-item" to="/seller/register">Start Selling</Link>
-		  <Link
-			className="dropdown-item"
-			to="/logout"
-		  >
-			Logout
-		  </Link>
-		</div>
-	  </div>
-	</NavDropdown>
-	*/}
-	</>
+	</div>
   );
 }
 
