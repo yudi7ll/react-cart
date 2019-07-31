@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -15,13 +15,14 @@ const ProductCard = ({ products }) => {
 		key={product._id}
 		lg={2}
 		className="p-1"
+		style={{
+		  maxHeight: '350px'
+		}}
 	  >
-		<Card
-		  className="w-100"
-		>
+		<Card>
 		  <Link
 			to={'/product/catalog/' + product._id}
-			className="h-75"
+			className="h-100"
 		  >
 			<Card.Img
 			  variant="top"
@@ -35,8 +36,8 @@ const ProductCard = ({ products }) => {
 			  { product.name }
 			</Card.Text>
 		  </Link>
-		  <div
-			className="mt-auto mb-4 px-3"
+		  <Card.Text
+			className="mb-4 px-3"
 		  >
 			<Card.Text
 			  className="text-secondary mb-1"
@@ -88,7 +89,7 @@ const ProductCard = ({ products }) => {
 			>
 			  Rp. { product.price }
 			</Card.Text>
-		  </div>
+		  </Card.Text>
 		</Card>
 	  </Col>
 	);

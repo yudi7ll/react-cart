@@ -77,7 +77,10 @@ const FlashSale = ({
 const mapStateToProps = state => {
   const filterState = ({ items }) => 
 	items
-	  .sort(() => 0.5 - Math.random())
+	  .sort((a, b) => {
+		// return a - b;
+		return 0.5 - Math.random();
+	  })
 	  .slice(0, 12)
 
   return {

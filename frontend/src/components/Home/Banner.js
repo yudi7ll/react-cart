@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Row,
   Col,
@@ -13,7 +14,7 @@ const imagePath = image => {
   return require(`../../../public/assets/images/banner/${image}`); 
 }
 
-const Banner = () => {
+const Banner = ({ categories }) => {
   const Categories = ({ icon, children, href }) => (
 	<Col
 	  className="text-center category"
@@ -40,6 +41,18 @@ const Banner = () => {
 	  </Link>
 	</Col>
   );
+
+  const CategoryLists = () => {
+	return categories.slice(0, 6).map(c => (
+	  <Categories
+		key={c._id}
+		icon={c.icon}
+		href={'/category/' + c.name}
+	  >
+		{ c.name }
+	  </Categories>
+	))
+  };
 
   return (
 	<Container
@@ -103,28 +116,17 @@ const Banner = () => {
 		<Row
 		  className="py-3"
 		>
-		  <Categories icon="desktop" href="/category/electronics">
-			Electronics
-		  </Categories>
-		  <Categories icon="futbol-o" href="/category/hobbies">
-			Hobbies & Collections
-		  </Categories>
-		  <Categories icon="bed" href="/category/furniture">
-			Furniture
-		  </Categories>
-		  <Categories icon="shirtsinbulk" href="/category/fashion">
-			Fashion
-		  </Categories>
-		  <Categories icon="book" href="/category/book">
-			Book
-		  </Categories>
-		  <Categories icon="cutlery" href="/category/food">
-			Food & Drink
-		  </Categories>
+		  <CategoryLists />
 		</Row>
 	  </Container>
 	</Container>
   );
 }
 
-export default Banner;
+const mapStateToProps = state => ({
+  categories: state.category.items
+});
+
+export default connect(
+  mapStateToProps
+)(Banner);

@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { checkAuth } from '../../actions';
 
@@ -11,39 +11,40 @@ import {
   Col
 } from 'react-bootstrap';
 
-const submitForm = (formData, callback) => {
-  fetch('/api/auth/login', {
-	headers: {
-	  'Content-Type': 'application/json'
-	},
-	method: 'POST',
-	body: JSON.stringify(formData),
-  })
-	.then(res => res.json())
-	.then(res => callback(res));
-}
-
 const LoginForm = ({ isLoading, refreshAuthStatus }) => {
-  let username,
-	password;
+  const [errors, setErrors] = useState(false);
+
+  const submitForm = e => {
+	e.preventDefault();
+
+	const { target } = e;
+	const formData = {
+	  [target[0].id]: target[0].value,
+	  [target[1].id]: target[1].value
+	};
+
+	fetch('/api/auth/login', {
+	  headers: {
+		'Content-Type': 'application/json'
+	  },
+	  method: 'POST',
+	  body: JSON.stringify(formData)
+	})
+	  .then(res => res.json())
+	  .then(res => {
+		refreshAuthStatus();
+
+		if (!res.errors)
+		  return document.location.href = '/';
+
+		// if errors occurs
+		setErrors(res.errors);
+	  });
+  }
 
   return (
 	<Form
-	  onSubmit={(e) => {
-		e.preventDefault();
-
-		const formData = {
-		  username: username.value,
-		  password: password.value
-		};
-
-		submitForm(formData, res => {
-		  refreshAuthStatus();
-
-		  if (!res.errors)
-			document.location.href = '/';
-		});
-	  }}
+	  onSubmit={submitForm}
 	>
 	  <Form.Group
 		as={Row}
@@ -63,8 +64,14 @@ const LoginForm = ({ isLoading, refreshAuthStatus }) => {
 			placeholder="Enter Username or Email"
 			autoComplete={'off'}
 			autoFocus
-			ref={e => username = e}
+			isInvalid={errors.username}
+			required
 		  />
+		  <Form.Control.Feedback
+			type="invalid"
+		  >
+			{ errors.username }
+		  </Form.Control.Feedback>
 		</Col>
 	  </Form.Group>
 	  <Form.Group
@@ -82,8 +89,14 @@ const LoginForm = ({ isLoading, refreshAuthStatus }) => {
 		>
 		  <Form.Control
 			type="password"
-			ref={e => password = e}
+			required
+			isInvalid={errors.password}
 		  />
+		  <Form.Control.Feedback
+			type="invalid"
+		  >
+			{ errors.password }
+		  </Form.Control.Feedback>
 		</Col>
 	  </Form.Group>
 	  <Button

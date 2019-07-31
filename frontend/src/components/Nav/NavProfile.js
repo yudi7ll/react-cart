@@ -2,7 +2,6 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   Nav,
-  NavDropdown,
   Button,
   Image,
   Dropdown
@@ -14,11 +13,56 @@ const imgUrl = (image) => {
 
 const NavProfile = ({ auth }) => {
   return (
-	<div>
-	  <Image
+	<Dropdown
+	  style={{
+		maxHeight: '25px',
+		maxWidth: '25px'
+	  }}
+	  className="mx-3"
+	  alignRight
+	>
+	  <Dropdown.Toggle
+		as={Image}
 		src={imgUrl(auth.image)}
+		className="h-100 w-100"
+		style={{
+		  objectFit: 'cover',
+		  cursor: 'pointer'
+		}}
+		roundedCircle
 	  />
-	</div>
+	  <Dropdown.Menu>
+		<Dropdown.Item
+		  as="div"
+		>
+		  <small>
+			<strong>Halo</strong>
+			, { auth.username }
+		  </small>
+		</Dropdown.Item>
+		<hr/>
+		<LinkContainer
+		  to={ "/profile/" + auth.username }
+		>
+		  <Dropdown.Item>
+			Profile
+		  </Dropdown.Item>
+		</LinkContainer>
+		<Dropdown.Item
+		  onClick={() => {
+			
+			fetch('/api/auth/logout', {
+			  method: 'POST'
+			})
+			  .then(() => document.location.href = "/");
+
+		  }}
+		>
+		  <span>Logout </span>
+		  <i className="fa fa-sign-out fa-fw"></i>
+		</Dropdown.Item>
+	  </Dropdown.Menu>
+	</Dropdown>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   Row,
@@ -10,9 +10,10 @@ import {
 import { fetchProducts, resetProducts } from '../../actions';
 import ProductCard from './ProductCard';
 
-const Product = ({ params, receiveData, products }) => {
+const Product = ({ receiveData, products }) => {
   // componentDidMount() without class
   useEffect(receiveData, []);
+  const [limit, setLimit] = useState(18);
 
   if (products.length <= 0)
 	return (
@@ -25,7 +26,6 @@ const Product = ({ params, receiveData, products }) => {
 	  </Container>
 	);
 
-  var limit = 18;
   return (
 	<Container>
 	  <Row>
@@ -33,17 +33,19 @@ const Product = ({ params, receiveData, products }) => {
 		  products={products.slice(0, limit)}
 		/>
 	  </Row>
-	  <Row>
+	  <Row
+		className="mt-4"
+	  >
 		<Col
 		  className="text-center mt-4 mx-0 px-0"
 		>
 		  <Button 
 			variant="outline-danger"
 			onClick={() => {
-			  limit = limit * 2
+			  setLimit(limit + 18);
 			}}
 			size="sm"
-			className="w-100"
+			className={ limit >= products.length && 'd-none' }
 		  >
 			See More ...
 		  </Button>

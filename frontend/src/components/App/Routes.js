@@ -9,12 +9,14 @@ import {
   ViewProduct,
   ProductByCategory
 } from '../Products';
+import Cart from '../Cart';
 
 const Routes = () => (
   <>
   <Route exact path="/" component={Home} />
   <Route path="/signup" component={Signup} />
-  <Route path="/login" component={Login} />
+  <Route path="/cart" component={Cart} />
+  <Route path="/login"  component={Login} />
   <Route path="/products" component={ProductList} />
   <Route path="/category/:category" component={ProductByCategory} />
   <Route path="/product/catalog/:id" component={ViewProduct} />
