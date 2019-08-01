@@ -4,7 +4,7 @@ const requestShipper = {
 };
 
 const requestFail = {
-  type: 'REQUEST_FAIL'
+  type: 'REQUEST_SHIPPER_FAIL'
 };
 
 const receiveShipper = shippers => ({

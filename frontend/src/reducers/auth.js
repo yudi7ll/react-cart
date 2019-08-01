@@ -3,7 +3,8 @@
 const auth = (state = {
   username: null,
   image: null,
-  isLoading: false
+  isLoading: false,
+  cartLength: 0
 }, action) => {
   switch (action.type) {
 	case 'REQUEST_AUTH':
@@ -18,7 +19,8 @@ const auth = (state = {
 		{
 		  isLoading: false,
 		  username: action.username,
-		  image: action.image
+		  image: action.image,
+		  cartLength: action.cartLength
 		});
 
 	case 'LOGOUT':

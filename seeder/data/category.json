@@ -1,15 +1,21 @@
 [
   {
-	"name": "Electronics"
+	"name": "Electronics",
+	"icon": "desktop"
   },{
-	"name": "Hobbies & Collections"
+	"name": "Hobbies & Collections",
+	"icon": "futbol-o"
   },{
-	"name": "Furniture"
+	"name": "Furniture",
+	"icon": "bed"
   },{
-	"name": "Fashion"
+	"name": "Fashion",
+	"icon": "shirtsinbulk"
   },{
-	"name": "Book"
+	"name": "Book",
+	"icon": "book"
   },{
-	"name": "Food & Drink"
+	"name": "Food & Drink",
+	"icon": "cutlery"
   }
 ]

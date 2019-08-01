@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Row,
   Col,
@@ -6,10 +7,39 @@ import {
   Button,
   Form,
 } from 'react-bootstrap';
+import {
+  LinkContainer
+} from 'react-router-bootstrap';
+import { checkAuth } from '../../../actions';
 import Rating from '../Rating';
 
-const ProductInfo = ({ product }) => {
+const ProductInfo = ({ product, auth, refreshAuth }) => {
   let qty;
+
+  const addToCart = () => {
+	const { price, discount } = product;
+	const productPrice = () => {
+	  let calculatedPrice = parseInt(price.split('.').join(''));
+	  calculatedPrice -= (discount / 100);
+	  return calculatedPrice.toLocaleString('id');
+	}
+
+	const data = {
+	  product: product._id,
+	  qty: qty.value,
+	  price: productPrice()
+	};
+
+	fetch('/api/cart', {
+	  headers: {
+		'Content-Type': 'application/json'
+	  },
+	  method: 'POST',
+	  body: JSON.stringify(data)
+	})
+	  .then(refreshAuth)
+	  .then(() => alert('Added to cart'))
+  }
 
   return (
 	<>
@@ -96,57 +126,86 @@ const ProductInfo = ({ product }) => {
 		  <i className="fa fa-plus fa-fw"></i>
 		</Button>
 	  </div>
-	  <Row>
-		<Col
-		  lg={7}
-		  className="mb-1"
-		>
-		  <Button
-			variant="secondary"
-			className="w-100"
-			size="sm"
+		<Row>
+		  {
+			!auth.username
+			  ?
+			  <Col>
+				<LinkContainer
+				  to="/login"
+				>
+				  <Button
+					variant="danger"
+					size="sm"
+					className="w-100"
+				  >
+					<i className="fa fa-sign-in"></i>
+					<span> Login</span>
+				  </Button>
+				</LinkContainer>
+			  </Col>
+			  :
+			  <>
+			  <Col
+				lg={7}
+				className="mb-1"
+			  >
+				<Button
+				  variant="secondary"
+				  className="w-100"
+				  size="sm"
+				  onClick={addToCart}
+				>
+				  Add to Cart
+				</Button>
+			  </Col>
+			  <Col
+				lg={5}
+			  >
+				<Button
+				  variant="danger"
+				  className="w-100 font-weight-bold"
+				  size="sm"
+				>
+				  Buy Now
+				</Button>
+			  </Col>
+			  </>
+		  }
+		</Row>
+		<hr/>
+		<Row>
+		  <Col
+			className="d-flex justify-content-between"
 		  >
-			Add to Cart
-		  </Button>
-		</Col>
-		<Col
-		  lg={5}
-		>
-		  <Button
-			variant="danger"
-			className="w-100 font-weight-bold"
-			size="sm"
-		  >
-			Buy Now
-		  </Button>
-		</Col>
-	  </Row>
-	  <hr/>
-	  <Row>
-		<Col
-		  className="d-flex justify-content-between"
-		>
-		  <span>
-			<span>Share :</span>
-			<a href="https://facebook.com/reactcart">
-			  <i className="fa fa-facebook fa-lg mx-2"></i>
-			</a>
-			<a href="https://twitter.com/reactcart">
-			  <i className="fa fa-twitter fa-lg mx-2"></i>
-			</a>
-			<a href="https://instagram.com/reactcart">
-			  <i className="fa fa-instagram fa-lg mx-2"></i>
-			</a>
-		  </span>
-		  <span>
-			<i className="fa fa-heart-o text-danger"> </i>
-			<span> Favorite ({ product.favorite })</span>
-		  </span>
-		</Col>
-	  </Row>
-	</Col>
+			<span>
+			  <span>Share :</span>
+			  <a href="https://facebook.com/reactcart">
+				<i className="fa fa-facebook fa-lg mx-2"></i>
+			  </a>
+			  <a href="https://twitter.com/reactcart">
+				<i className="fa fa-twitter fa-lg mx-2"></i>
+			  </a>
+			  <a href="https://instagram.com/reactcart">
+				<i className="fa fa-instagram fa-lg mx-2"></i>
+			  </a>
+			</span>
+			<span>
+			  <i className="fa fa-heart-o text-danger"> </i>
+			  <span> Favorite ({ product.favorite })</span>
+			</span>
+		  </Col>
+		</Row>
+	  </Col>
 	</>
   );
 }
 
-export default ProductInfo;
+const mapDispatchToProps = dispatch => ({
+  refreshAuth: () => dispatch(checkAuth())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ProductInfo);

@@ -4,11 +4,12 @@ const isLoading = {
   type: 'REQUEST_AUTH'
 };
 
-const authStatus = ({ username, image }) => {
+const authStatus = ({ username, image, cartLength }) => {
   return {
 	type: 'AUTH_STATUS',
 	username,
-	image
+	image,
+	cartLength
   };
 }
 

@@ -15,9 +15,6 @@ const ProductCard = ({ products }) => {
 		key={product._id}
 		lg={2}
 		className="p-1"
-		style={{
-		  maxHeight: '350px'
-		}}
 	  >
 		<Card>
 		  <Link
@@ -36,7 +33,7 @@ const ProductCard = ({ products }) => {
 			  { product.name }
 			</Card.Text>
 		  </Link>
-		  <Card.Text
+		  <div
 			className="mb-4 px-3"
 		  >
 			<Card.Text
@@ -89,7 +86,7 @@ const ProductCard = ({ products }) => {
 			>
 			  Rp. { product.price }
 			</Card.Text>
-		  </Card.Text>
+		  </div>
 		</Card>
 	  </Col>
 	);

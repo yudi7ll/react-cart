@@ -17,9 +17,7 @@ class App extends Component {
 	return (
 	  <Router>
 		<NavBar />
-		<main>
-		  <Routes />
-		</main>
+		<Routes />
 		<Footer />
 	  </Router>
 	);

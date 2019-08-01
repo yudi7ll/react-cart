@@ -1,27 +1,26 @@
-
-const shipper = (state = {
+const cart = (state = {
   isLoading: false,
-  requestFail: false,
+  errors: false,
   items: []
 }, action) => {
   switch (action.type) {
-	case 'REQUEST_SHIPPER':
+	case 'REQUEST_CART':
 	  return Object.assign({}, state, {
 		isLoading: true,
-		requestFail: false
+		errors: false
 	  });
 
-	case 'RECEIVE_SHIPPER':
+	case 'REQUEST_CART_FAIL':
 	  return Object.assign({}, state, {
 		isLoading: false,
-		requestFail: false,
-		items: action.shippers
+		errors: true
 	  });
 
-	case 'REQUEST_SHIPPER_FAIL':
+	case 'RECEIVE_CART':
 	  return Object.assign({}, state, {
 		isLoading: false,
-		requestFail: true
+		errors: false,
+		items: action.items
 	  });
 
 	default:
@@ -29,4 +28,4 @@ const shipper = (state = {
   }
 }
 
-export default shipper;
+export default cart;

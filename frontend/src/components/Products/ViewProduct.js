@@ -19,7 +19,7 @@ import {
   ShipperInfo
 } from './ViewProductComponents';
 
-const ViewProduct = ({ fetchData, product, shippers }) => {
+const ViewProduct = ({ auth = {}, fetchData, product, shippers }) => {
 
   useEffect(fetchData, []);
 
@@ -69,6 +69,7 @@ const ViewProduct = ({ fetchData, product, shippers }) => {
 		  >
 			<ProductInfo
 			  product={product}
+			  auth={auth}
 			/>
 		  </Row>
 		  <Row
@@ -110,6 +111,7 @@ const mapStateToProps = (state, ownProps) => ({
 	  requestFail: state.products.requestFail
   }),
   shippers: state.shipper,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({

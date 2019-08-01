@@ -13,6 +13,7 @@ import {
 
 const LoginForm = ({ isLoading, refreshAuthStatus }) => {
   const [errors, setErrors] = useState(false);
+  console.log(this);
 
   const submitForm = e => {
 	e.preventDefault();
@@ -34,11 +35,10 @@ const LoginForm = ({ isLoading, refreshAuthStatus }) => {
 	  .then(res => {
 		refreshAuthStatus();
 
-		if (!res.errors)
-		  return document.location.href = '/';
+		if (res.errors)
+		  return setErrors(res.errors);
 
-		// if errors occurs
-		setErrors(res.errors);
+		return document.location.href = '/';
 	  });
   }
 
@@ -112,8 +112,9 @@ const LoginForm = ({ isLoading, refreshAuthStatus }) => {
   );
 }
 
-const mapStateToProps = state => ({
-  isLoading: state.auth.isLoading
+const mapStateToProps = (state, ownProps) => ({
+  isLoading: state.auth.isLoading,
+  ownProps
 })
 
 const mapDispatchToProps = dispatch => {

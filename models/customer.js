@@ -19,12 +19,15 @@ const customersSchema = new Schema({
   },
   image: {
 	type: String,
-	unique: true,
 	default: 'default.png'
   },
   password: {
 	type: String,
 	required: true
+  },
+  cartLength: {
+	type: Number,
+	default: 0
   },
   address: String,
   city: String,

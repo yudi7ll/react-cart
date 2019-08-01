@@ -62,7 +62,8 @@ exports.checkAuthStatus = (req, res) => {
   return req.isAuthenticated()
 	? res.status(200).json({
 	  username: req.user.username,
-	  image: req.user.image || null
+	  image: req.user.image || null,
+	  cartLength: req.user.cartLength
 	})
 	: res.status(200).json({
 	  errors: {

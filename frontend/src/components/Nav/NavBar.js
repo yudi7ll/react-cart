@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
   Navbar,
   Nav,
-  NavDropdown
+  NavDropdown,
+  Badge
 } from 'react-bootstrap';
 import './NavBar.scss';
 
@@ -79,6 +80,12 @@ const NavBar = ({ auth, isLoading, categories }) => {
 		  <LinkContainer to="/cart">
 			<Nav.Link>
 			  <i className="fa fa-shopping-cart fa-lg"></i>
+			  <Badge
+				variant="dark"
+				className="rounded-circle pull-right"
+			  >
+				{ auth.cartLength || '' }
+			  </Badge>
 			</Nav.Link>
 		  </LinkContainer>
 		</Nav>

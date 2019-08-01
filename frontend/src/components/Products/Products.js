@@ -7,12 +7,16 @@ import {
   Button
 } from 'react-bootstrap';
 
-import { fetchProducts, resetProducts } from '../../actions';
+import {
+  fetchProducts,
+  resetProducts
+} from '../../actions';
 import ProductCard from './ProductCard';
 
 const Product = ({ receiveData, products }) => {
-  // componentDidMount() without class
+
   useEffect(receiveData, []);
+
   const [limit, setLimit] = useState(18);
 
   if (products.length <= 0)
