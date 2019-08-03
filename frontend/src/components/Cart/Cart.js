@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import {
   Row,
   Col,
@@ -13,13 +14,15 @@ import { fetchCart } from '../../actions';
 import { Rating } from '../Products';
 
 
-const Cart = ({ fetchData, cart = [], isLoading }) => {
+const Cart = ({ fetchData, auth = {}, cart = [], isLoading }) => {
 
   useEffect(fetchData, []);
 
   let cartChecked = [];
   const [priceTotal, setPriceTotal] = useState('0');
   const [itemSelected, setItemSelected] = useState(0);
+
+  // TODO : Select Product
 
   const updateState = () => {
 	const total = () => 
@@ -35,6 +38,7 @@ const Cart = ({ fetchData, cart = [], isLoading }) => {
 	setPriceTotal(total());
   }
 
+	/*
   useEffect(() => {
 	console.log('asd');
 	// const selected = () => 
@@ -44,6 +48,7 @@ const Cart = ({ fetchData, cart = [], isLoading }) => {
     //
 	// setItemSelected(selected());
   });
+  */
 
 
   const ProductDetail = () => {
@@ -116,7 +121,7 @@ const Cart = ({ fetchData, cart = [], isLoading }) => {
 				  <i className="fa fa-minus fa-fw"></i>
 				</Button>
 				<Form.Control
-				  defaultValue="1"
+				  defaultValue={ cart[i].qty }
 				  style={{
 					display: 'inline',
 					backgroundColor: '#f2f2f2',
@@ -153,10 +158,45 @@ const Cart = ({ fetchData, cart = [], isLoading }) => {
   if (isLoading)
 	return (
 	  <h4
-		className="text-center text-danger"
+		className="text-center text-danger mt-4"
 	  >
 		Loading ...
 	  </h4>
+	);
+
+  if (!cart.length || cart.length <= 0)
+	return (
+	  <Container
+		className="mt-4 mx-auto"
+	  >
+		{
+		  !auth.username
+			? 
+			<>
+			  <h4
+				className="text-danger"
+			  >
+				You must logged in before access Cart
+			  </h4>
+			  <LinkContainer
+				to="/login"
+			  >
+				<Button
+				  variant="danger"
+				>
+				  <i className="fa fa-sign-in fa-fw"> </i>
+				  Login
+				</Button>
+			  </LinkContainer>
+			</>
+			:
+			  <h4
+				className="text-danger text-center"
+			  >
+				Your Cart is empty
+			  </h4>
+		}
+	  </Container>
 	);
 
   return (
@@ -208,7 +248,8 @@ const Cart = ({ fetchData, cart = [], isLoading }) => {
 
 const mapStateToProps = state => ({
   isLoading: state.cart.isLoading,
-  cart: state.cart.items
+  cart: state.cart.items,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({

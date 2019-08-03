@@ -13,7 +13,7 @@ chai.use(require('chai-http'));
 const data = { 
   beforeEach: {
 	name: 'beforeCustomer',
-	username: 'yudi1ll',
+	username: 'test1ll',
 	email: 'userbefore@email.com',
 	address: 'test',
 	password: 'password',
@@ -25,7 +25,7 @@ const data = {
   },
   user: {
 	name: 'Yudi',
-	username: 'yudi1ll',
+	username: 'test2ll',
 	password: 'password123',
 	birthDate: '1999-07-04T05:10:28.685Z',
 	email: 'user@email.com',
@@ -34,10 +34,20 @@ const data = {
 	country: 'test',
 	postalCode: 'test',
 	phone: '109238471',
+  },
+  login: {
+	username: 'yudi1ll',
+	email: 'yudi@gmail.com',
+	password: 'password'
   }
 }
 
 describe('AUTH TEST', () => {
+
+  afterEach(done => {
+	Customer
+	  .deleteOne({ username: data.user.username }, () => { done() });
+  });
 
   describe('/POST /auth/register', () => {
 
@@ -65,12 +75,12 @@ describe('AUTH TEST', () => {
 
 	  agent
 		.post('/api/auth/login')
-		.send(data.beforeEach)
+		.send(data.login)
 		.end((err, res) => {
 		  should.not.exist(err);
 		  res.should.have.status(200);
 		  res.body.should.have.property('authenticated').eql(true);
-		  should.not.exist(res.body.msg);
+		  should.not.exist(res.body.errors);
 
 		  // request with authenticated user
 			agent
@@ -89,7 +99,7 @@ describe('AUTH TEST', () => {
 		.get('/api/auth/isAuthenticated')
 		.end((err, res) => {
 		  should.not.exist(err);
-		  res.should.have.status(401);
+		  res.should.have.status(200);
 		  res.body.should.be.a('object');
 		  res.body.should.have.property('errors');
 		  done();
